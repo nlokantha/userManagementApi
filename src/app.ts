@@ -20,7 +20,6 @@ app.get('/health-check', (req:Request, res:Response) => {
 });
 
 
-
 app.use("/users", userRoutes);
 
 

@@ -30,3 +30,28 @@ export const updateUser = async (req:Request, res:Response, next:NextFunction) =
   }
 }
 
+export const deleteUser = async (req:Request, res:Response, next:NextFunction) => {
+  try {
+    const result = await userService.deleteUser(req.params["id"] as string);
+    res.status(200).json({
+      success: result,
+      message: result ? "User deleted successfully" : "User not found"
+    });
+  } catch (error) {
+    next(error);
+  }
+}
+
+export const getUsers = async (req:Request, res:Response, next:NextFunction) => {
+  try {
+    const page = parseInt(req.query.page as string) || 1;
+    const limit = parseInt(req.query.limit as string) || 10;
+    const email = req.query.email as string | undefined;
+
+    const users = await userService.getUsers(page, limit, email);
+    res.status(200).json(users);
+  } catch (error) {
+    next(error);
+  }
+};
+
