@@ -15,15 +15,9 @@ export const userRepository = {
 
     findAll:()=> prisma.user.findMany(),
 
-<<<<<<< HEAD
   update: (id: string, data: PrismaTypes.UserUpdateInput) =>
     prisma.user.update({ where: { id }, data }),
 
   delete: (id: string) => prisma.user.delete({ where: { id } }),
 };
-=======
-    delete:(id:string)=>prisma.user.delete({where:{id}}),
-
-    findByEmail:(email:string)=>prisma.user.findFirst({where:{email}})
-}
->>>>>>> 1d20cab9a434a66945ad0a729d0eaa224930a64b
+ 
