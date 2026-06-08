@@ -25,9 +25,17 @@ export const userService = {
     return user;
   },
 
-  async getUsers(page: number, limit: number, email?: string) {
-    const skip = (page - 1) * limit;
-    return userRepository.findAll(skip, limit, email);
+  // async getUsers(page: number, limit: number, email?: string) {
+  //   const skip = (page - 1) * limit;
+  //   return userRepository.findAll(skip, limit, email);
+  // },
+
+  async getUsers() {
+    try {
+      return await userRepository.findAll();
+    } catch (error) {
+      throw new ApiError(500, "Error fetching users");
+    }
   },
 
   async updateUser(id: string, data: userInfo) {

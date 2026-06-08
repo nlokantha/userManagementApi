@@ -20,6 +20,23 @@ export const getUserById = async (req:Request, res:Response, next:NextFunction) 
     }
 }
 
+export const deleteUser = async (req:Request, res:Response, next:NextFunction) => {  try {
+    await userService.deleteUser(req.params.id);
+    res.status(204).send();
+  } catch (error) {
+    next(error);
+  }
+}
+
+export const getAllUsers = async (req:Request, res:Response, next:NextFunction) => {
+  try {
+    const users = await userService.getUsers();
+    res.status(200).json(users);
+  } catch (error) {
+    next(error);
+  }
+} 
+
 
 export const updateUser = async (req:Request, res:Response, next:NextFunction) => {
   try {
