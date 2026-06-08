@@ -1,5 +1,6 @@
 import { userRepository } from "./user.repository";
 import { ApiError } from "../../utils/ApiError";
+import { Prisma } from "../../../generated/prisma";
 
 type userInfo = {
   name: string;
@@ -8,7 +9,14 @@ type userInfo = {
 
 export const userService = {
   async createUser(data: userInfo) {
-    return await userRepository.create(data);
+    try {
+      return await userRepository.create(data);
+    } catch (err) {
+      if (err instanceof Prisma.PrismaClientKnownRequestError && err.code === "P2002") {
+        throw new ApiError(409, "A user with this email already exists");
+      }
+      throw err;
+    }
   },
 
   async getUserById(id: string) {

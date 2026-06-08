@@ -9,6 +9,7 @@ import { createUserSchema } from "./user.schema";
 
 router.post("/", validate(createUserSchema), createUser);
 router.get("/:id", getUserById);
+// router.get("/",)
 
 
 
