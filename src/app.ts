@@ -21,6 +21,10 @@ app.get("/health-check", (req: Request, res: Response) => {
   });
 });
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> 1d20cab9a434a66945ad0a729d0eaa224930a64b
 app.use("/users", userRoutes);
 
 app.use(errorHandler);
