@@ -7,8 +7,7 @@ export const validate = (schema:ZodSchema)=>(req:Request,res:Response,next:NextF
         schema.parse(req.body)
         next()
     } catch (error) {
-        console.log("Error in the validate")
-        next("Validation Error: " + (error as Error).message)
+        // next("Validation Error: " + (error as Error).message)
         if(error instanceof ZodError){
             res.status(422).json({
                 success:false,                

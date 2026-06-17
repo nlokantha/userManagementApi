@@ -3,7 +3,6 @@ import type { Prisma as PrismaTypes } from "../../../generated/prisma";
 
 export const userRepository = {
   create: (data: PrismaTypes.UserCreateInput) => prisma.user.create({ data }),
-
   findById: (id: string) => prisma.user.findUnique({ where: { id } }),
 
 //   findAll: (skip: number, take: number, email?: string) =>

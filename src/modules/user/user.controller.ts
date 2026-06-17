@@ -6,6 +6,7 @@ export const createUser = async (req: Request, res: Response, next: NextFunction
     const user = await userService.createUser(req.body);
     res.status(201).json(user);
   } catch (err) {
+    console.error("Error in createUser controller:", err);
     next(err);
   }
 };

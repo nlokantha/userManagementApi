@@ -13,9 +13,9 @@ export const userService = {
       return await userRepository.create(data);
     } catch (err) {
       if (err instanceof Prisma.PrismaClientKnownRequestError && err.code === "P2002") {
-        throw new ApiError(409, "A user with this email already exists");
-      }
-      throw err;
+      throw new ApiError(409, "Email already exists"); // domain-specific error
+    }
+    throw err; // rethrow everything else as-is
     }
   },
 
@@ -31,18 +31,28 @@ export const userService = {
   // },
 
   async getUsers() {
-    try {
-      return await userRepository.findAll();
-    } catch (error) {
-      throw new ApiError(500, "Error fetching users");
-    }
+    return userRepository.findAll();
   },
 
   async updateUser(id: string, data: userInfo) {
-    return userRepository.update(id, data);
+    try {
+      return await userRepository.update(id, data);
+    } catch (err) {
+      if (err instanceof Prisma.PrismaClientKnownRequestError && err.code === "P2025") {
+        throw new ApiError(404, "User not found"); // domain-specific error
+      }
+      throw err; // rethrow everything else as-is
+    }
   },
 
   async deleteUser(id: string) {
-    return userRepository.delete(id);
+    try {
+      return await userRepository.delete(id);
+    } catch (err) {
+      if (err instanceof Prisma.PrismaClientKnownRequestError && err.code === "P2025") {
+        throw new ApiError(404, "User not found"); // domain-specific error
+      }
+      throw err; // rethrow everything else as-is
+    }
   },
 };
