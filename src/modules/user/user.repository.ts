@@ -5,14 +5,14 @@ export const userRepository = {
   create: (data: PrismaTypes.UserCreateInput) => prisma.user.create({ data }),
   findById: (id: string) => prisma.user.findUnique({ where: { id } }),
 
-//   findAll: (skip: number, take: number, email?: string) =>
-//     prisma.user.findMany({
-//       skip,
-//       take,
-//       where: email ? { email: { contains: email } } : {},
-//     }),
+  findAll: (skip: number, take: number, email?: string) =>
+    prisma.user.findMany({
+      skip,
+      take,
+      where: email ? { email: { contains: email } } : {},
+    }),
 
-    findAll:()=> prisma.user.findMany(),
+    // findAll:()=> prisma.user.findMany(),
 
   update: (id: string, data: PrismaTypes.UserUpdateInput) =>
     prisma.user.update({ where: { id }, data }),

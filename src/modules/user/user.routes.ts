@@ -10,7 +10,7 @@ import { createUserSchema } from "./user.schema";
 
 router.post("/", validate(createUserSchema), createUser);
 router.get("/:id", getUserById);
-router.get("/",getAllUsers)
+router.get("/", getAllUsers);
 router.put("/:id", validate(createUserSchema), updateUser);
 router.delete("/:id", deleteUser);
 router.get("/", getAllUsers);

@@ -1,12 +1,14 @@
 import { NextFunction, Request, Response } from "express";
 import { userService } from "./user.service";
+import logger from "../../lib/logger";
 
 export const createUser = async (req: Request, res: Response, next: NextFunction) => {
   try {
     const user = await userService.createUser(req.body);
+    logger.info("User created successfully");
     res.status(201).json(user);
   } catch (err) {
-    console.error("Error in createUser controller:", err);
+    logger.error("Error creating user", err);
     next(err);
   }
 };
@@ -31,7 +33,7 @@ export const deleteUser = async (req: Request, res: Response, next: NextFunction
 
 export const getAllUsers = async (req: Request, res: Response, next: NextFunction) => {
   try {
-    const users = await userService.getUsers();
+    const users = await userService.getUsers( parseInt(req.query.page as string) || 1, parseInt(req.query.limit as string) || 10, req.query.email as string);
     res.status(200).json(users);
   } catch (error) {
     next(error);

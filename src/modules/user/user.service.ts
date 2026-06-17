@@ -13,9 +13,9 @@ export const userService = {
       return await userRepository.create(data);
     } catch (err) {
       if (err instanceof Prisma.PrismaClientKnownRequestError && err.code === "P2002") {
-      throw new ApiError(409, "Email already exists"); // domain-specific error
+      throw new ApiError(409, "Email already exists");
     }
-    throw err; // rethrow everything else as-is
+    throw err;
     }
   },
 
@@ -25,14 +25,14 @@ export const userService = {
     return user;
   },
 
-  // async getUsers(page: number, limit: number, email?: string) {
-  //   const skip = (page - 1) * limit;
-  //   return userRepository.findAll(skip, limit, email);
-  // },
-
-  async getUsers() {
-    return userRepository.findAll();
+  async getUsers(page: number, limit: number, email?: string) {
+    const skip = (page - 1) * limit;
+    return userRepository.findAll(skip, limit, email);
   },
+
+  // async getUsers() {
+  //   return userRepository.findAll();
+  // },
 
   async updateUser(id: string, data: userInfo) {
     try {
